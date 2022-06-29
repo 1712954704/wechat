@@ -37,10 +37,16 @@ class ConsoleAppLication
             parse_str(substr($str,$location_option + 2),$this->options);
             $this->options = array_values($this->options);
             $location_option = $location_option - $location_func - 2;
+            $func = substr($str,$location_func + 2 ,$location_option);
+        }else{
+            $func = substr($str,$location_func + 2);
         }
-        $func = substr($str,$location_func + 2 ,$location_option);
         $subject = new $subjectClass;
-        call_user_func_array([$subject,$func],$this->options);
+        if ($this->options){
+            call_user_func_array([$subject,$func],$this->options);
+        }else{
+            call_user_func_array([$subject,$func],[]);
+        }
     }
 
     /**
